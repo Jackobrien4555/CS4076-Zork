@@ -3,7 +3,7 @@
 using namespace std;
 #include "ZorkUL.h"
 
-int main(int argc, char argv[]) {
+int main(int argc, char *argv[]) {
 	ZorkUL temp;
 	temp.play();
 	return 0;
@@ -42,6 +42,7 @@ void ZorkUL::createRooms()  {
     i->setExits(NULL, d, NULL, NULL);
     newRoom->setExits(NULL, NULL, f, NULL);
         currentRoom = a;
+         rooms = {*a, *b, *c, *d, *e, *f, *g, *h, *i, *newRoom};
 }
 
 /**
@@ -131,14 +132,11 @@ bool ZorkUL::processCommand(Command command) {
     }
     else if (commandWord.compare("teleport") == 0)
     {
-        if (!command.hasSecondWord()){
-                    cout << "incomplete input" << endl;
-                }
-                else{
-                    teleport(command.getSecondWord());
-                    cout << currentRoom->longDescription() << endl;
-                }
-    }
+        Room room = randomRoom();
+              currentRoom = &room;
+              cout << currentRoom->longDescription() << endl;
+          }
+
     /*
     {
     if (!command.hasSecondWord()) {
@@ -185,7 +183,7 @@ void ZorkUL::goRoom(Command command) {
 	}
 }
 
-void ZorkUL::teleport(string room){
+/*void ZorkUL::teleport(string room){
     if (room.compare("rand")==0){
         unsigned int roomSize = rooms.size();
         unsigned int randRoom = rand() % roomSize;
@@ -198,8 +196,11 @@ void ZorkUL::teleport(string room){
                    currentRoom = rooms[i];
            }
 }
+}*/
+Room ZorkUL::randomRoom() {
+    int choice = rand() % 10;
+    return rooms[choice];
 }
-
 string ZorkUL::go(string direction) {
 	//Make the direction lowercase
 	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
