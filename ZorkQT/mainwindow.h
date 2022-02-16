@@ -23,6 +23,16 @@ private slots:
 
     void on_Quit_clicked();
 
+    void on_textEdit_copyAvailable(bool b);
+
+    void on_northButton_clicked();
+
+    void on_westButton_clicked();
+
+    void on_eastButton_clicked();
+
+    void on_southButton_clicked();
+
 private:
     Ui::MainWindow *ui;
       QPushButton *push_button2;
