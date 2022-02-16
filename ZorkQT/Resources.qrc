@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/MenuScreen">
         <file>images/489ceccb15bbd05ea614de990118cde0.gif</file>
+        <file>images/download.jfif</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>images/bar.gif</file>
+        <file>images/alleyway.png</file>
+        <file>images/store.jpg</file>
     </qresource>
 </RCC>

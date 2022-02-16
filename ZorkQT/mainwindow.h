@@ -1,8 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "Room.h"
 #include <QMainWindow>
 #include<QPushButton>
+#include <iostream>
+#include <string>
+using namespace std;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -11,10 +14,13 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+     Room *a, *b, *c, *d, *e;
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+   // Room* currentRoom;
+     //   Room* nextRoom;
 
 private slots:
     void on_pushButton_clicked();
@@ -36,5 +42,11 @@ private slots:
 private:
     Ui::MainWindow *ui;
       QPushButton *push_button2;
+      void startGame();
+      void createRooms();
+      void goRoom(string direction);
+       vector<Room> rooms;
+           Room *currentRoom;
+           Room* nextRoom;
 };
 #endif // MAINWINDOW_H
