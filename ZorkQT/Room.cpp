@@ -20,7 +20,7 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-    return "room = " + description + ".\n" + exitString();
+    return "room = " + description + ".\n"  + exitString();
 }
 
 string Room::exitString() {
@@ -43,7 +43,6 @@ Room* Room::nextRoom(string dir) {
     return next->second; // If there is a room, remove the "second" (Room*)
     // part of the "pair" (<string, Room*>) and return it.
 }
-
 
 
 

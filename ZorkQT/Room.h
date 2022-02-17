@@ -16,6 +16,7 @@ private:
 
 
 
+
 public:
 
     Room(string description); //constructor
@@ -23,6 +24,8 @@ public:
     string shortDescription(); //name of the room
     string longDescription(); //objective
     Room* nextRoom(string direction);
+
+
 };
 
 #endif

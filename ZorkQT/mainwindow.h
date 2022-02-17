@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "Room.h"
+#include "item.h"
 #include <QMainWindow>
 #include<QPushButton>
 #include <iostream>
@@ -14,7 +15,8 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-     Room *a, *b, *c, *d, *e;
+     Room *a, *b, *c, *d, *e,*f,*g,*h;
+     Item *key;
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -48,5 +50,10 @@ private:
        vector<Room> rooms;
            Room *currentRoom;
            Room* nextRoom;
+
+
+                Item* temp;
+
+                string itemText;
 };
 #endif // MAINWINDOW_H
