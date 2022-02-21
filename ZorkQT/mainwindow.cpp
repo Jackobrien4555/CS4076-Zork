@@ -18,32 +18,37 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::startGame()
 {
 
-    createRooms();
-    ui->photoWidget->setCurrentIndex(0);
+     createRooms();
+     ui->photoWidget->setCurrentIndex(0);
+     ui->interactWidget->setCurrentIndex(1);
 }
 void MainWindow::createRooms()
 {
     a = new Room("A - Dark Street/Start Point");
     b = new Room("B - Bar Entrance");
     c = new Room("C - Bar");
-    d = new Room("D - Alleyway");
-
-
-
+    d = new Room("D - Alleyway");   
     e = new Room("E - 24/7 Shop");
     f = new Room("F - Danger Alley");
     g = new Room("G - End screen");
     h = new Room("H - Inside of store");
-                //(N, E, S, W)
+    gameOver = new Room("Game Over - You have died");
+
+    //(N, E, S, W)
     a->setExits(b, NULL, NULL, NULL);
     b->setExits(c, e, a, d);
     c->setExits(g, NULL, b, NULL);
     d->setExits(f,b, NULL, NULL);
     e->setExits(h, NULL, NULL, b);
-    f->setExits(NULL,NULL, d, NULL);
+    f->setExits(gameOver,NULL, d, NULL);
     g->setExits(NULL, NULL, c, NULL);
     h->setExits(NULL,NULL,e,NULL);
+    gameOver->setExits(NULL,NULL,NULL,NULL);
     currentRoom = a;
+
+    Item *key;
+    key = new Item("Key", true);
+    d->addItemsToRoom(key);
 
 }
 void MainWindow::goRoom(string direction)
@@ -78,20 +83,9 @@ MainWindow::~MainWindow()
     delete e;
     delete f;
     delete g;
+    delete h;
+    delete gameOver;
     delete ui;
-}
-
-
-void MainWindow::on_pushButton_clicked()
-{
-    ui->textEdit->setText("Hello World");
-}
-
-
-void MainWindow::on_pushButton_2_clicked()
-{
-
-ui->textEdit->setText("Welcome to Zork");
 }
 
 
@@ -114,10 +108,13 @@ void MainWindow::on_northButton_clicked()
    ui->photoWidget->setCurrentIndex(1);
     ui->textWidget->setCurrentIndex(1);
 
-    } if (currentRoom == b) {
+    } if (currentRoom == b )  {
+
          ui->photoWidget->setCurrentIndex(2);
          ui->textWidget->setCurrentIndex(2);
-    } if (currentRoom == c) {
+
+     }
+     if (currentRoom == c) {
         ui->photoWidget->setCurrentIndex(5);
          ui->textWidget->setCurrentIndex(5);
     } if (currentRoom == d) {
@@ -127,7 +124,9 @@ void MainWindow::on_northButton_clicked()
         ui->photoWidget->setCurrentIndex(7);
          ui->textWidget->setCurrentIndex(7);
     }
-
+    if(currentRoom ==d){
+         ui->interactWidget->setCurrentIndex(0);
+    }
      goRoom("North");
 }
 
@@ -135,14 +134,18 @@ void MainWindow::on_northButton_clicked()
 void MainWindow::on_westButton_clicked()
 {
 
-     if (currentRoom == b) {
+     if (currentRoom == b ) {
          ui->photoWidget->setCurrentIndex(3);
          ui->textWidget->setCurrentIndex(3);
+       if(ui->itemWidget->currentIndex()==0){
+
+           ui->interactWidget->setCurrentIndex(2);
      }            if (currentRoom == e) {
          ui->photoWidget->setCurrentIndex(1);
          ui->textWidget->setCurrentIndex(1);
 }
  goRoom("West");
+}
 }
 
 
@@ -164,19 +167,20 @@ void MainWindow::on_eastButton_clicked()
 void MainWindow::on_southButton_clicked()
 {
     if (currentRoom == c) {
-   ui->photoWidget->setCurrentIndex(1);
-   ui->textWidget->setCurrentIndex(1);
+         ui->photoWidget->setCurrentIndex(1);
+         ui->textWidget->setCurrentIndex(1);
     } if (currentRoom == b) {
          ui->photoWidget->setCurrentIndex(0);
          ui->textWidget->setCurrentIndex(0);
-} if (currentRoom == g) {
-        ui->photoWidget->setCurrentIndex(2);
+    } if (currentRoom == g) {
+         ui->photoWidget->setCurrentIndex(2);
          ui->textWidget->setCurrentIndex(2);
     } if (currentRoom == f) {
-        ui->photoWidget->setCurrentIndex(3);
+         ui->photoWidget->setCurrentIndex(3);
          ui->textWidget->setCurrentIndex(3);
+         ui->interactWidget->setCurrentIndex(2);
     } if (currentRoom == h) {
-        ui->photoWidget->setCurrentIndex(6);
+         ui->photoWidget->setCurrentIndex(6);
          ui->textWidget->setCurrentIndex(6);
     }
          goRoom("South");
@@ -184,4 +188,40 @@ void MainWindow::on_southButton_clicked()
 }
 
 
+
+void MainWindow::on_fight_clicked()
+{
+     ui->photoWidget->setCurrentIndex(8);
+     ui->textWidget->setCurrentIndex(8);
+     goRoom("gameOver");
+}
+
+
+void MainWindow::on_Search_clicked()
+{
+
+    if(currentRoom->checkItem()){
+            if (currentRoom->getItemFromRoom()->getItemName() == "Key"){
+          ui->itemWidget->setCurrentIndex(1);
+          ui->textWidget->setCurrentIndex(9);
+
+
+}
+           currentRoom->setHasItem(false);
+           ui->interactWidget->setCurrentIndex(3);
+
+    }
+}
+
+
+void MainWindow::on_Unlock_clicked()
+{
+   if(currentRoom==b){
+       ui->photoWidget->setCurrentIndex(2);
+       ui->textWidget->setCurrentIndex(2);
+       ui->interactWidget->setCurrentIndex(1);
+       goRoom("North");
+   }
+
+}
 

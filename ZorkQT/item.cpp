@@ -1,25 +1,35 @@
+#ifndef ITEM_H_
+#define ITEM_H_
 #include "item.h"
+#include <map>
+#include <string>
+#include <iostream>
+using namespace std;
 
 Item::Item()
 {
 
 }
 
-Item::Item(string description)
+Item::Item(string name, bool required)
 {
-    this->description = description;
+    this->name = name;
+    this->required = required;
 }
 
-/*
- * returns the short description of the item.
- * i.e. the name of the item
- */
-string Item::getShortDescription()
+string Item::getItemName()
 {
-    return description;
+    return name;
 }
 
-string Item::getLongDescription()
+
+bool Item::isRequired()
 {
-    return " item(s), " + description + ".\n";
+    return required;
 }
+
+void Item::deleteThis()
+{
+    delete this;
+}
+#endif /*ITEM_H_*/

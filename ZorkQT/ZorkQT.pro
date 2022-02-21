@@ -10,11 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     Room.cpp \
+    item.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Room.h \
+    item.h \
     main.h \
     mainwindow.h
 

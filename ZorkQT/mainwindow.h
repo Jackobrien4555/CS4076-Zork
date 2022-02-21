@@ -15,8 +15,8 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-     Room *a, *b, *c, *d, *e,*f,*g,*h;
-     Item *key;
+     Room *a, *b, *c, *d, *e,*f,*g,*h,*gameOver;
+
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -25,9 +25,6 @@ public:
      //   Room* nextRoom;
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
 
     void on_Quit_clicked();
 
@@ -41,19 +38,23 @@ private slots:
 
     void on_southButton_clicked();
 
+    void on_fight_clicked();
+
+    void on_Search_clicked();
+
+    void on_Unlock_clicked();
+
 private:
-    Ui::MainWindow *ui;
-      QPushButton *push_button2;
-      void startGame();
-      void createRooms();
-      void goRoom(string direction);
-       vector<Room> rooms;
+           Ui::MainWindow *ui;
+           QPushButton *push_button2;
+           void startGame();
+           void createRooms();
+           void goRoom(string direction);
+           void createItems();
+           void displayItems();
+           vector<Room> rooms;
            Room *currentRoom;
            Room* nextRoom;
 
-
-                Item* temp;
-
-                string itemText;
 };
 #endif // MAINWINDOW_H

@@ -1,5 +1,5 @@
-#ifndef ITEM_H_
-#define ITEM_H_
+#ifndef ITEM_H
+#define ITEM_H
 
 #include <map>
 #include <string>
@@ -9,17 +9,14 @@ using namespace std;
 class Item {
 private:
     string name;
-    string description;
-    string longDescription;
+    bool required;
 
 public:
-
     Item();
-    Item(string description);
-
-    string getShortDescription();
-    string getLongDescription();
+       Item(string name, bool  required);
+       string getItemName();
+       bool isRequired();
+       void deleteThis();
 };
 
 #endif /*ITEM_H_*/
-

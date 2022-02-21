@@ -31,11 +31,6 @@ string Room::exitString() {
     return returnString;
 }
 
-/*Room::~Room()
-{
-
-}*/
-
 Room* Room::nextRoom(string dir) {
     map<string, Room*>::iterator next = exit.find(dir); //returns an iterator for the "pair"
     if (next == exit.end())
@@ -44,5 +39,24 @@ Room* Room::nextRoom(string dir) {
     // part of the "pair" (<string, Room*>) and return it.
 }
 
+void Room::addItemsToRoom(Item *item1)
+{
+    this->roomItems = item1;
+    this->hasItem = true;
+}
 
 
+Item* Room::getItemFromRoom()
+{
+    return roomItems;
+}
+
+bool Room::checkItem()
+{
+    return hasItem;
+}
+
+void Room::setHasItem(bool flag)
+{
+    this->hasItem = flag;
+}
