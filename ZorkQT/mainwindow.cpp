@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "wordle.h"
 //#include "Command.h"
 
 
@@ -219,9 +220,19 @@ void MainWindow::on_Unlock_clicked()
    if(currentRoom==b){
        ui->photoWidget->setCurrentIndex(2);
        ui->textWidget->setCurrentIndex(2);
-       ui->interactWidget->setCurrentIndex(1);
+       ui->interactWidget->setCurrentIndex(4);
        goRoom("North");
    }
 
+}
+
+
+void MainWindow::on_SolveWordle_clicked()
+{
+    if(currentRoom == b){
+   Wordle wordle;
+   wordle.setModal(true);
+   wordle.exec();
+    }
 }
 

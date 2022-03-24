@@ -44,6 +44,8 @@ private slots:
 
     void on_Unlock_clicked();
 
+    void on_SolveWordle_clicked();
+
 private:
            Ui::MainWindow *ui;
            QPushButton *push_button2;

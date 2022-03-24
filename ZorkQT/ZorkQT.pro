@@ -12,16 +12,19 @@ SOURCES += \
     Room.cpp \
     item.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    wordle.cpp
 
 HEADERS += \
     Room.h \
     item.h \
     main.h \
-    mainwindow.h
+    mainwindow.h \
+    wordle.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    wordle.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
