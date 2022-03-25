@@ -21,8 +21,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-   // Room* currentRoom;
-     //   Room* nextRoom;
+    Room* currentRoom;
+        Room* nextRoom;
 
 private slots:
 
@@ -55,8 +55,8 @@ private:
            void createItems();
            void displayItems();
            vector<Room> rooms;
-           Room *currentRoom;
-           Room* nextRoom;
+           //Room *currentRoom;
+          // Room* nextRoom;
 
 };
 #endif // MAINWINDOW_H

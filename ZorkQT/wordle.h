@@ -1,4 +1,4 @@
-#ifndef WORDLE_H
+/*#ifndef WORDLE_H
 #define WORDLE_H
 
 #include <QDialog>
@@ -15,8 +15,15 @@ public:
     explicit Wordle(QWidget *parent = nullptr);
     ~Wordle();
 
+private slots:
+
+
+    void on_Quit_clicked();
+
+    void on_Enter_clicked();
+
 private:
     Ui::Wordle *ui;
 };
 
-#endif // WORDLE_H
+#endif // WORDLE_H  */

@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "wordle.h"
-//#include "Command.h"
+#include "ZorkUL.h"
+#include "Command.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -229,10 +230,12 @@ void MainWindow::on_Unlock_clicked()
 
 void MainWindow::on_SolveWordle_clicked()
 {
-    if(currentRoom == b){
+    WordleEngine::initialiseWordleEngine();
+            WordleEngine::startWordleGame();
+   /* if(currentRoom == c){
    Wordle wordle;
    wordle.setModal(true);
-   wordle.exec();
+   wordle.exec();*/
     }
-}
+
 

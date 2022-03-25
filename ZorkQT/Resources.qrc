@@ -14,5 +14,6 @@
         <file>images/danger alley.jpg</file>
         <file>images/alleyway 2.jpg</file>
         <file>images/key.png</file>
+        <file>words.txt</file>
     </qresource>
 </RCC>

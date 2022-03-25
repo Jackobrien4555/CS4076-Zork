@@ -1,4 +1,4 @@
-/* #ifndef COMMAND_H_
+#ifndef COMMAND_H_
 #define COMMAND_H_
 
 #include <string>
@@ -17,4 +17,5 @@ public:
     bool hasSecondWord();
 };
 
-#endif COMMAND_H_ */
+#endif
+
