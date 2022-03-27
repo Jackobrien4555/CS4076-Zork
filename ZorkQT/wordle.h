@@ -1,8 +1,12 @@
-/*#ifndef WORDLE_H
+#ifndef WORDLE_H
 #define WORDLE_H
-
 #include <QDialog>
+#include <iostream>
+#include <string>
+#include <fstream>
 
+using std::string;
+using std::vector;
 namespace Ui {
 class Wordle;
 }
@@ -24,6 +28,7 @@ private slots:
 
 private:
     Ui::Wordle *ui;
+      //static void initWords(string filename);
 };
 
-#endif // WORDLE_H  */
+#endif // WORDLE_H

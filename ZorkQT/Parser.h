@@ -1,4 +1,5 @@
-#ifndef PARSER_H_
+/*
+ * #ifndef PARSER_H_
 #define PARSER_H_
 
 #include "Command.h"
@@ -10,8 +11,11 @@ private:
 
 public:
     Parser();
+    ~Parser();
     Command* getCommand();
-    void showCommands();
+    Command* convertToCommand(string input);
+        string commandsInString();
+    //void showCommands();
 };
+*/
 
-#endif /*PARSER_H_*/

@@ -13,13 +13,13 @@ using namespace std;
 
 class ZorkUL {
 private:
-    Parser parser;
+
    //static Room *currentRoom;
    //static vector<Room> rooms;
   void createRooms();
 
     void printWelcome();
-    bool processCommand(Command command);
+
     void printHelp();
     void goRoom(Command command);
     void createItems();
@@ -30,8 +30,10 @@ public:
     ZorkUL();
     void play();
     string go(string direction);
-    static string processCommand(Command command, MainWindow *MainWindow);
-    // static vector<Room*> createRooms();
+
+
+    static bool compareIgnoreCase(string a, string b);
+    static string stringToLower(string a);
 };
 
 #endif /*ZORKUL_H_*/

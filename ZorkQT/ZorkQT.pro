@@ -13,7 +13,6 @@ SOURCES += \
     CommandWords.cpp \
     Parser.cpp \
     Room.cpp \
-    WordleEngine.cpp \
     ZorkUL.cpp \
     item.cpp \
     mainwindow.cpp \
@@ -24,7 +23,6 @@ HEADERS += \
     CommandWords.h \
     Parser.h \
     Room.h \
-    WordleEngine.h \
     ZorkUL.h \
     item.h \
     mainwindow.h \

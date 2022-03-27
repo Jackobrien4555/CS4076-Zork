@@ -34,7 +34,7 @@ void MainWindow::createRooms()
     f = new Room("F - Danger Alley");
     g = new Room("G - End screen");
     h = new Room("H - Inside of store");
-    gameOver = new Room("Game Over - You have died");
+    wordleRoom = new Room("The ultimate Wordle door");
 
     //(N, E, S, W)
     a->setExits(b, NULL, NULL, NULL);
@@ -46,6 +46,7 @@ void MainWindow::createRooms()
     g->setExits(NULL, NULL, c, NULL);
     h->setExits(NULL,NULL,e,NULL);
     gameOver->setExits(NULL,NULL,NULL,NULL);
+    wordleRoom->setExits(NULL,NULL,NULL,NULL);
     currentRoom = a;
 
     Item *key;
@@ -230,12 +231,11 @@ void MainWindow::on_Unlock_clicked()
 
 void MainWindow::on_SolveWordle_clicked()
 {
-    WordleEngine::initialiseWordleEngine();
-            WordleEngine::startWordleGame();
-   /* if(currentRoom == c){
-   Wordle wordle;
-   wordle.setModal(true);
-   wordle.exec();*/
+
+   if(currentRoom == c){
+  Wordle wordle;
+  wordle.setModal(true);
+  wordle.exec();
     }
 
-
+}

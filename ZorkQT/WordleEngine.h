@@ -1,4 +1,4 @@
-#ifndef WORDLEENGINE_H
+/*#ifndef WORDLEENGINE_H
 #define WORDLEENGINE_H
 
 #include <string>
@@ -36,4 +36,4 @@ public:
     static bool isEqualIgnoreCase(char& first, char& second);
 };
 
-#endif
+#endif*/

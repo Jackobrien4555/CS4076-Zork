@@ -1,4 +1,4 @@
-#include "WordleEngine.h"
+/*#include "WordleEngine.h"
 #include <QTextStream>
 #include <QFile>
 #include <mainwindow.h>
@@ -125,3 +125,4 @@ void WordleEngine::startWordleGame(){
 WordleEngine::gameStatus WordleEngine::getWordleStatus(){
     return WordleEngine::wordleStatus;
 }
+*/

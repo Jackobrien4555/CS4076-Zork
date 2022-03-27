@@ -15,7 +15,7 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-     Room *a, *b, *c, *d, *e,*f,*g,*h,*gameOver;
+     Room *a, *b, *c, *d, *e,*f,*g,*h,*gameOver,*wordleRoom;
 
 
 public:
@@ -24,7 +24,9 @@ public:
     Room* currentRoom;
         Room* nextRoom;
 
+
 private slots:
+
 
     void on_Quit_clicked();
 

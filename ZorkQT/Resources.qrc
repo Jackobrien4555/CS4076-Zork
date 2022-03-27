@@ -15,5 +15,6 @@
         <file>images/alleyway 2.jpg</file>
         <file>images/key.png</file>
         <file>words.txt</file>
+        <file>Allwords.txt</file>
     </qresource>
 </RCC>
