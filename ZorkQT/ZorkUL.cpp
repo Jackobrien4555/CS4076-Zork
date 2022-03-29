@@ -31,23 +31,25 @@ int main(int argc, char *argv[]) {
     }
 
 
-/** COMMANDS **/
+
+/**
+ * Given a command in the wordle game the code goes through the process of executing that command
+ */
 string ZorkUL::processCommand(Command command, Wordle *window) {
     string output = "";
-    // If we're in a Wordle game, treat the input as a Wordle attempt
-    if(WordleCode::getWordleStatus() == WordleCode::WORDLE_PROGRESS){
+    // In the Wordle game, the input is used as a Wordle attempt
+    if(WordleCode::getStatus() == WordleCode::WORDLE_PROGRESS){
         output += WordleCode::evaluateInput(command.getCommandWord());
 
-        if(WordleCode::getWordleStatus() == WordleCode::WORDLE_PROGRESS){
+        if(WordleCode::getStatus() == WordleCode::WORDLE_PROGRESS){
             return output;
         }
-        // If it's a success, give the reward of that particular room
-        else if(WordleCode::getWordleStatus() == WordleCode::WORDLE_SUCCESS){
+        // If it's a success, a knife is given to the player and one is able to continue the game
+        else if(WordleCode::getStatus() == WordleCode::WORDLE_SUCCESS){
             output += " After a minute a knife is dispensed from the machine,you pick it up wearily and continue on your way. Press exit to continue. ";
 
         }
-    }
-    //string commandWord = command.getCommandWord();
+    }   
     return output;
 }
 

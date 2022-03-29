@@ -25,6 +25,10 @@ void MainWindow::startGame()
      ui->photoWidget->setCurrentIndex(0);
      ui->interactWidget->setCurrentIndex(1);
 }
+/**
+ * creates all rooms and place them into "Rooms"
+ * also sets the exits for these rooms and intialises two items and places them into rooms
+ */
 void MainWindow::createRooms()
 {
    // vector<Room*> MainWindow::Rooms;
@@ -71,6 +75,7 @@ void MainWindow::createRooms()
     d->addItemsToRoom(key);
 
 }
+
 void MainWindow::setRooms(vector<Room *> rooms){
    MainWindow::Rooms = rooms;
 }
@@ -97,7 +102,7 @@ void MainWindow::goRoom(string direction)
 
 }
 
-
+// Deletes "Room" and the ui when terminated
 MainWindow::~MainWindow()
 {
     for(auto& room :MainWindow::getRooms()){
@@ -114,14 +119,12 @@ void MainWindow::on_Quit_clicked()
    MainWindow::close();
 }
 
-
-void MainWindow::on_textEdit_copyAvailable(bool b)
-{
-
-    ui->textEdit->setText("Welcome to the world of Zork,where it's always raining and wordle is king.");
-}
-
-
+/**
+ * when the north button is pressed checks which room you are in
+ * and changes the textWidget,photoWidget and interactWidget accordingly
+ * also goes in direction of button pressed
+ *
+ */
 void MainWindow::on_northButton_clicked()
 {
     if (currentRoom == a) {
@@ -159,7 +162,12 @@ if (currentRoom == d) {
      goRoom("North");
 }
 
-
+/**
+ * when the west button is pressed checks which room you are in
+ * and changes the textWidget,photoWidget and interactWidget accordingly
+ * also goes in direction of button pressed
+ *
+ */
 void MainWindow::on_westButton_clicked()
 {
 
@@ -178,7 +186,12 @@ void MainWindow::on_westButton_clicked()
 }
 }
 
-
+/**
+ * when the east button is pressed checks which room you are in
+ * and changes the textWidget,photoWidget and interactWidget accordingly
+ * also goes in direction of button pressed
+ *
+ */
 void MainWindow::on_eastButton_clicked()
 {
 
@@ -193,7 +206,12 @@ void MainWindow::on_eastButton_clicked()
  goRoom("East");
 }
 
-
+/**
+ * when the south button is pressed checks which room you are in
+ * and changes the textWidget,photoWidget and interactWidget accordingly
+ * also goes in direction of button pressed
+ *
+ */
 void MainWindow::on_southButton_clicked()
 {
     if (currentRoom == b) {
@@ -224,7 +242,10 @@ if (currentRoom == g) {
 }
 
 
-
+/**
+ * if player has completed wordle they will be allowed pass the fight and win game
+ * if player has not completed wordle they will lose game and go to gameOver screen
+ */
 void MainWindow::on_fight_clicked()
 {
     if(wordleRoom->checkItem()==false){
@@ -241,6 +262,9 @@ void MainWindow::on_fight_clicked()
     goRoom("gameOver");
 }
 
+/**
+ * if in correct room and key is present a key image will appear in inventory screen
+ */
 
 void MainWindow::on_Search_clicked()
 {
@@ -248,8 +272,6 @@ void MainWindow::on_Search_clicked()
     if(currentRoom->checkItem()){
             if (currentRoom->getItemFromRoom()->getItemName() == "Key"){
           ui->itemWidget->setCurrentIndex(1);
-         // ui->textWidget->setCurrentIndex(9);
-
 
 }
            currentRoom->setHasItem(false);
@@ -258,7 +280,11 @@ void MainWindow::on_Search_clicked()
     }
 }
 
-
+/**
+ * if search has already been pressed unlock button will appear
+ * if in correct room key will work and you will be brought to victory screen
+ * Option to move rooms will then be removed
+ */
 void MainWindow::on_Unlock_clicked()
 {
    if(currentRoom==c){
@@ -272,7 +298,10 @@ void MainWindow::on_Unlock_clicked()
 
 }
 
-
+/**
+ * if in correct room when button is pressed a new wordle window will open up
+ * item will also be removed from room
+ */
 
 void MainWindow::on_SolveWordle_clicked()
 {
@@ -285,7 +314,9 @@ void MainWindow::on_SolveWordle_clicked()
     }
 
 }
-
+/**
+ * if button is pressed an image of the map will show on screen
+ */
 void MainWindow::on_Map_2_clicked()
 {
   ui->photoWidget->setCurrentIndex(10);

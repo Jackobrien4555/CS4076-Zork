@@ -19,7 +19,7 @@ Wordle::Wordle(QWidget *parent) :
 {
     ui->setupUi(this);
      ui->outputConsole->setWordWrap(true);
-     WordleCode::initialiseWordleEngine();
+     WordleCode::initialiseWordle();
      WordleCode::startWordleGame();
 }
 
@@ -28,57 +28,56 @@ Wordle::~Wordle()
     delete ui;
 }
 
-void Wordle::scrollToBottom(){
-    //ui->scrollArea->verticalScrollBar()->setValue(ui->scrollArea->verticalScrollBar()->maximum());
-}
+
 void Wordle::clearConsole(){
     ui->outputConsole->clear();
 }
 
 void Wordle ::addStringToConsole(string input){
-    //qDebug("Hello");
+
     ui->outputConsole->setText(ui->outputConsole->text() + QString::fromStdString("\n") + QString::fromStdString(input));
-    scrollToBottom();
+
 }
 
 void Wordle::addQStringToConsole(QString input){
-    //qDebug("Hello");
+
     ui->outputConsole->setText(ui->outputConsole->text() + QString::fromStdString("\n") + input);
-    scrollToBottom();
+
 }
 
 void Wordle::overwriteConsole(string input){
     ui->outputConsole->clear();
     addStringToConsole(input);
 
-    scrollToBottom();
+
 }
 
 
 void Wordle::parseInput(string input){
     Command *command = ZorkUL::getParser()->convertToCommand(input);
-    //    addStringToConsole("> " + input + "\n");
-    overwriteConsole("> " + input + "\n");
+    // addStringToConsole(" " + your input + "\n");
+    overwriteConsole(" " + input + "\n");
     string output = ZorkUL::processCommand(*command, this);
-
-    // Processes errors
+    //  error management
     if(output.compare("") == 0){
-        //addStringToConsole(Dialogues::inputError);
+        // print out error
         overwriteConsole("Error ");
         return;
     }
     overwriteConsole(output);
 
-
        delete command;
 
        ui->input->setFocus();
-       scrollToBottom();
-   }
 
+   }
+/**
+ * is the wordle game has been completed succesfully window can be closed and the game can be continued
+ * otherwise pressing quite button will terminate the program as you have failed the game by giving up or dying
+ */
 void Wordle::on_Quit_clicked()
 {    
-   if (WordleCode::getWordleStatus() == WordleCode::WORDLE_SUCCESS){
+   if (WordleCode::getStatus() == WordleCode::WORDLE_SUCCESS){
     Wordle::close();
    } else{
      exit(0);
@@ -89,28 +88,27 @@ void Wordle::on_Quit_clicked()
 
 void Wordle::on_input_textChanged()
 {
-    // Converting from QString to string and finding the index of "enter" or "\n"
+    // Converting from QString to string
+    // finding what "enter" or "\n" index is
        string input = ui->input->toPlainText().toStdString();
        size_t newlineIndex = input.find('\n');
 
-       // Preventing users from entering several enter lines
+       // not allowing you to enter more than one line
        if(newlineIndex == 0){
            ui->input->clear();
            return;
        }
 
-       // Removing the newline from the string
+       // Removing the line thats new from the string
        input = input.substr(0, newlineIndex);
 
        // Checks if there are any newlines or if the "enter" key is pressed
        if(newlineIndex != string::npos && input.size() > 0){
-           //addStringToConsole("> " + input + "\n");
+           //addStringToConsole(" " + your input + "\n");
            this->parseInput(input);
 
            ui->input->clear();
-       }
-
-       scrollToBottom();
+       }      
    }
 
 

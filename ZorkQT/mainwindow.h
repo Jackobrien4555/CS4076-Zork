@@ -28,9 +28,7 @@ public:
 private slots:
 
 
-    void on_Quit_clicked();
-
-    void on_textEdit_copyAvailable(bool b);
+    void on_Quit_clicked();  
 
     void on_northButton_clicked();
 
@@ -55,14 +53,10 @@ private:
            QPushButton *push_button2;
            void startGame();
            void createRooms();
-           void goRoom(string direction);
-         //  void createItems();
-          // void displayItems();
-         //  vector<Room> rooms;
+           void goRoom(string direction);         
            static vector<Room*> getRooms();
            static void setRooms(vector<Room*> rooms);
-           //Room *currentRoom;
-          // Room* nextRoom;
+
 
 };
 #endif // MAINWINDOW_H

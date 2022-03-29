@@ -36,7 +36,7 @@ void WordleCode::initWords(string filename){
     }
 }
 
-void WordleCode::initialiseWordleEngine(){
+void WordleCode::initialiseWordle(){
     initWords("");
     WordleCode::wordleStatus = WordleCode::WORDLE_PROGRESS;
 }
@@ -123,6 +123,6 @@ void WordleCode::startWordleGame(){
     WordleCode::targetWord = allWords.at(rand() % allWords.size());
 }
 
-WordleCode::gameStatus WordleCode::getWordleStatus(){
+WordleCode::gameStatus WordleCode::getStatus(){
     return WordleCode::wordleStatus;
 }

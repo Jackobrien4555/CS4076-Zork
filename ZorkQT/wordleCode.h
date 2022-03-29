@@ -18,21 +18,19 @@ public:
 private:
     // All valid words
     static vector<string> allWords;
-    static int triesLeft;
+    static int triesLeft;    
+    static gameStatus wordleStatus;
     static void initWords(string filename);
     static string targetWord;
-    static gameStatus wordleStatus;
 
 
 public:
     static string evaluateInput(const string& input);
-
     static vector<string> getAllWords();
+    static gameStatus getStatus();
     static void startWordleGame();
-    static string checkGameStatus();
-    static void initialiseWordleEngine();
-    static gameStatus getWordleStatus();
-
+    static string checkGame();
+    static void initialiseWordle();
     static bool isEqualIgnoreCase(char& first, char& second);
 };
 

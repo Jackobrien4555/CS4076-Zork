@@ -24,14 +24,12 @@ public:
         void overwriteConsole(string input);
         void updateBackground(string path);
         void parseInput(string input);
-        void scrollToBottom();
+
 
 private slots:
 
 
-
     void on_Quit_clicked();
-
 
     void on_input_textChanged();
 
