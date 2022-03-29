@@ -33,4 +33,8 @@ public:
 
 };
 
+class WordleRoom : public Room{
+    WordleRoom(string(*interactFunc));
+};
+
 #endif

@@ -1,5 +1,4 @@
-/*
- * #ifndef PARSER_H_
+#ifndef PARSER_H_
 #define PARSER_H_
 
 #include "Command.h"
@@ -17,5 +16,4 @@ public:
         string commandsInString();
     //void showCommands();
 };
-*/
-
+#endif //Parser.h

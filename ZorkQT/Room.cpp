@@ -1,4 +1,5 @@
 #include "Room.h"
+#include "ZorkUL.h"
 
 Room::Room(string description) {
     this->description = description;
@@ -38,6 +39,11 @@ Room* Room::nextRoom(string dir) {
     return next->second; // If there is a room, remove the "second" (Room*)
     // part of the "pair" (<string, Room*>) and return it.
 }
+
+//WordleRoom::WordleRoom(string(*interactFunc)){
+
+//    this->interactFunc = interactFunc;
+//}
 
 void Room::addItemsToRoom(Item *item1)
 {

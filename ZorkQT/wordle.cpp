@@ -1,44 +1,26 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <random>
+#include "ZorkUL.h"
 #include "wordle.h"
+#include "wordleCode.h"
 #include "ui_wordle.h"
 #include <QTextStream>
 #include <QFile>
-#include <stdio.h>
-#include <stdlib.h>
-#include <cstdlib>
-#include <ctime>
+#include <QDebug>
+#include <QMovie>
+#include <QKeyEvent>
+#include <QScrollBar>
 
-#define SIZE (5)
-#define COLOR_RED     "\x1b[31m"
-#define COLOR_GREEN   "\x1b[32m"
-#define COLOR_YELLOW  "\x1b[33m"
-#define COLOR_BLUE    "\x1b[34m"
-#define COLOR_RESET   "\x1b[0m"
-
-using std::ifstream;
-using std::getline;
-using std::cout;
-using std::endl;
-using namespace std;
-
-int verify_letter(int position, char c, string word, int file_size);
-int count_all_words();
-void print_all_words();
-void welcome_message();
-bool check_attempt(string attempt, int file_size);
-string choose_random_word(int file_size);
-
-ifstream in;
 
 Wordle::Wordle(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Wordle)
 {
     ui->setupUi(this);
+     ui->outputConsole->setWordWrap(true);
+     WordleCode::initialiseWordleEngine();
+     WordleCode::startWordleGame();
 }
 
 Wordle::~Wordle()
@@ -46,138 +28,89 @@ Wordle::~Wordle()
     delete ui;
 }
 
-int start(){
-    int correct_letters = 0, attempts_num = 0, file_size = count_all_words();
-        string right_word = choose_random_word(file_size);
-
-        welcome_message();
-        do {
-            string attempt;
-            cin >> attempt;
-            if (!check_attempt(attempt, file_size))
-                continue;
-            int diff = 'A' - 'a';
-            correct_letters = 0;
-            for (int i = 0; i < SIZE; i++){
-                switch (verify_letter(i, attempt[i], right_word, file_size)){
-                    case -1:
-                        printf("%c ", attempt[i] + diff);
-                        break;
-                    case 0:
-                        printf(COLOR_YELLOW "%c " COLOR_RESET, attempt[i] + diff);
-                        break;
-                    case 1:
-                        correct_letters++;
-                        printf(COLOR_GREEN "%c " COLOR_RESET, attempt[i] + diff);
-                        break;
-                }
-            }
-            cout << "\n";
-            attempts_num++;
-
-        } while (correct_letters != 5 && attempts_num < 5);
-        if (attempts_num == 5 && correct_letters != 5)
-            cout << "Lost.The right word is: " << right_word << "\n";
-        else
-            printf(COLOR_GREEN "Congrats!!\n" COLOR_RESET);
-
-        return 0;
-    }
-
-int verify_letter(int position, char c, string word, int file_size){
-    int i, found = -1;
-    if (word[position] == c)
-        return 1;
-
-    for (i = 0; i < SIZE; i++){
-        if (word[i] == c){
-            found = 0;
-            break;
-        }
-    }
-    return found;
+void Wordle::scrollToBottom(){
+    //ui->scrollArea->verticalScrollBar()->setValue(ui->scrollArea->verticalScrollBar()->maximum());
+}
+void Wordle::clearConsole(){
+    ui->outputConsole->clear();
 }
 
-int count_all_words(){
-    string line;
-    int count = 0;
-    in.open("words.txt");
-
-    while(in.peek()!=EOF){
-        getline(in, line);
-        count++;
-    }
-    in.close();
-    return count;
+void Wordle ::addStringToConsole(string input){
+    //qDebug("Hello");
+    ui->outputConsole->setText(ui->outputConsole->text() + QString::fromStdString("\n") + QString::fromStdString(input));
+    scrollToBottom();
 }
 
-void print_all_words(){
-    string line;
-    in.open("words.txt");
-    while(in.peek()!=EOF){
-        getline(in, line);
-        cout << line << " ";
-    }
-    cout << "\n";
-    in.close();
+void Wordle::addQStringToConsole(QString input){
+    //qDebug("Hello");
+    ui->outputConsole->setText(ui->outputConsole->text() + QString::fromStdString("\n") + input);
+    scrollToBottom();
 }
 
-void welcome_message(){
-    printf(COLOR_RED "\n\n                                        Welcome\n" COLOR_RESET);
-    printf(COLOR_YELLOW "                                    W O R D L E\n\n" COLOR_RESET);
-    printf(COLOR_GREEN "Type here:\n" COLOR_RESET);
-    printf(COLOR_BLUE "    Help" COLOR_RESET);
-    cout << " - to see the wordlist.\n";
-    printf(COLOR_BLUE "    Quit" COLOR_RESET);
-    cout << " - to leave the game.\n";
-    printf(COLOR_BLUE "    Its a 5 letter word " COLOR_RESET);
-    cout << "(in lowercase) - try to guess the answer.\n\n";
-    printf(COLOR_YELLOW "                                 5 tries available\n" COLOR_RESET);
+void Wordle::overwriteConsole(string input){
+    ui->outputConsole->clear();
+    addStringToConsole(input);
 
-}
-bool check_attempt(string attempt, int file_size){
-
-    if (attempt.compare("quit") == 0)
-        exit(EXIT_SUCCESS);
-    else if (attempt.compare("help") == 0){
-        print_all_words();
-        return false;
-    }
-    string word;
-    in.open("words.txt");
-    for (int i = 0; i < file_size; i++){
-        getline(in, word);
-        if (attempt.compare(word) == 0){
-            in.close();
-            return true;
-        }
-    }
-    in.close();
-    cout << "Word doesn't exist\n";
-    return false;
+    scrollToBottom();
 }
 
-string choose_random_word(int file_size){
-    string right_word;
-    in.open(":/words.txt");
 
-    srand((unsigned)time(0));
-    for(int i = 0; i < rand() % file_size + 1; i++){
-        getline(in, right_word);
+void Wordle::parseInput(string input){
+    Command *command = ZorkUL::getParser()->convertToCommand(input);
+    //    addStringToConsole("> " + input + "\n");
+    overwriteConsole("> " + input + "\n");
+    string output = ZorkUL::processCommand(*command, this);
+
+    // Processes errors
+    if(output.compare("") == 0){
+        //addStringToConsole(Dialogues::inputError);
+        overwriteConsole("Error ");
+        return;
     }
-    in.close();
-    if (right_word.length() != 5)
-        exit(EXIT_FAILURE);
+    overwriteConsole(output);
 
-    return right_word;
-}
 
+       delete command;
+
+       ui->input->setFocus();
+       scrollToBottom();
+   }
 
 void Wordle::on_Quit_clicked()
-{
+{    
+   if (WordleCode::getWordleStatus() == WordleCode::WORDLE_SUCCESS){
     Wordle::close();
+   } else{
+     exit(0);
+
+   }
 }
-void Wordle::on_Enter_clicked()
+
+
+void Wordle::on_input_textChanged()
 {
-  start();
-}
+    // Converting from QString to string and finding the index of "enter" or "\n"
+       string input = ui->input->toPlainText().toStdString();
+       size_t newlineIndex = input.find('\n');
+
+       // Preventing users from entering several enter lines
+       if(newlineIndex == 0){
+           ui->input->clear();
+           return;
+       }
+
+       // Removing the newline from the string
+       input = input.substr(0, newlineIndex);
+
+       // Checks if there are any newlines or if the "enter" key is pressed
+       if(newlineIndex != string::npos && input.size() > 0){
+           //addStringToConsole("> " + input + "\n");
+           this->parseInput(input);
+
+           ui->input->clear();
+       }
+
+       scrollToBottom();
+   }
+
+

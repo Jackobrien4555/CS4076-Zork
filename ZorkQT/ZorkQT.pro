@@ -16,7 +16,8 @@ SOURCES += \
     ZorkUL.cpp \
     item.cpp \
     mainwindow.cpp \
-    wordle.cpp
+    wordle.cpp \
+    wordleCode.cpp
 
 HEADERS += \
     Command.h \
@@ -26,7 +27,8 @@ HEADERS += \
     ZorkUL.h \
     item.h \
     mainwindow.h \
-    wordle.h
+    wordle.h \
+    wordleCode.h
 
 FORMS += \
     mainwindow.ui \

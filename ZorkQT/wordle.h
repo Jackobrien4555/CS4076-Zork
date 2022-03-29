@@ -6,7 +6,7 @@
 #include <fstream>
 
 using std::string;
-using std::vector;
+
 namespace Ui {
 class Wordle;
 }
@@ -18,17 +18,26 @@ class Wordle : public QDialog
 public:
     explicit Wordle(QWidget *parent = nullptr);
     ~Wordle();
+    void clearConsole();
+        void addStringToConsole(string input);
+        void addQStringToConsole(QString input);
+        void overwriteConsole(string input);
+        void updateBackground(string path);
+        void parseInput(string input);
+        void scrollToBottom();
 
 private slots:
 
 
+
     void on_Quit_clicked();
 
-    void on_Enter_clicked();
+
+    void on_input_textChanged();
 
 private:
     Ui::Wordle *ui;
-      //static void initWords(string filename);
+
 };
 
 #endif // WORDLE_H

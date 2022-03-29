@@ -15,8 +15,8 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-     Room *a, *b, *c, *d, *e,*f,*g,*h,*gameOver,*wordleRoom;
-
+       Room *a, *b, *c, *d, *e,*f,*g,*h,*gameOver,*wordleRoom;
+      static vector<Room*> Rooms;
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -48,15 +48,19 @@ private slots:
 
     void on_SolveWordle_clicked();
 
+    void on_Map_2_clicked();
+
 private:
            Ui::MainWindow *ui;
            QPushButton *push_button2;
            void startGame();
            void createRooms();
            void goRoom(string direction);
-           void createItems();
-           void displayItems();
-           vector<Room> rooms;
+         //  void createItems();
+          // void displayItems();
+         //  vector<Room> rooms;
+           static vector<Room*> getRooms();
+           static void setRooms(vector<Room*> rooms);
            //Room *currentRoom;
           // Room* nextRoom;
 

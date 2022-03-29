@@ -1,4 +1,4 @@
-/*#include "Parser.h"
+#include "Parser.h"
 
 Parser::Parser() {
     commands = new CommandWords();
@@ -43,4 +43,4 @@ Command* Parser::convertToCommand(string input){
 
 string Parser::commandsInString(){
     return commands->validCommandsToString();
-}*/
+}
