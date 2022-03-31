@@ -5,36 +5,61 @@
 #include <vector>
 #include "item.h"
 
+using std::vector;
 using namespace std;
 using std::vector;
 
+// Abstract class holding properties that rooms will have,ie. if it has an item
+class RoomProps{
+public:
+      virtual bool hasItems() = 0;
+};
 
-class Room {
+
+//friend class of Mainwindow allowing it to access its private and protected members
+class Room : public RoomProps {
+    friend class MainWindow;
 
 private:
-    string description;
-    map<string, Room*> exit;
-    string exitString();
-    bool hasItem;
-    bool fileRead = false;
-    Item *roomItems;
+
+     bool fileRead = false;
+     Item *roomItems;
+
+protected:
+     vector <Item*> itemsInRoom;
+     string description;
+     map<string, Room*> exit;
+     string exitString();
 
 public:
-    int numberOfItems();
-    Room(string description); //constructor
-    void setExits(Room *north, Room *east, Room *south, Room *west);
-    string shortDescription(); //name of the room
-    string longDescription(); //objective
-    Room* nextRoom(string direction);
-    void addItemsToRoom(Item *item1);
-    Item* getItemFromRoom();
-    bool checkItem();
-    void setHasItem(bool flag);
+
+     Room(string description=" ",bool item=false); //constructor
+     Room(const Room &R1);
+
+     virtual ~Room();
+     union {
+             Item* item;
+             ;
+    };
+     bool hasItem;
+     int numberOfItems();
+     void addItemsToRoom(Item *item1);
+     Item* getItemFromRoom();
+     vector<Item*> getItems();
+     bool checkItem();
+     void setHasItem(bool flag);
+     bool hasItems() override;
+
+     void setExits(Room *north, Room *east, Room *south, Room *west);
+     string shortDescription(); //name of the room
+     string longDescription(); //objective
+     Room* nextRoom(string direction);
+
 
 };
 
 class WordleRoom : public Room{
-    WordleRoom(string(*interactFunc));
+     WordleRoom(string(*interactFunc));
 };
 
 #endif

@@ -8,6 +8,11 @@
 #include <string>
 using namespace std;
 
+//bit structure- allows me to pack members inside a single byte and reduce overall size
+struct Quantities{
+        unsigned int knivesAvailable : 4;
+};
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -21,9 +26,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    Room* currentRoom;
-        Room* nextRoom;
-
+    static Room *getCurrentRoom();
+    Room* nextRoom;
+    static void deleteAll();
+    static void addItem(Item*);
+    static vector<Item*> getAllItems();
 
 private slots:
 
@@ -56,7 +63,10 @@ private:
            void goRoom(string direction);         
            static vector<Room*> getRooms();
            static void setRooms(vector<Room*> rooms);
-
+           static Room* currentRoom;
+           static vector<Room*> allRooms;
+           //array
+           static bool knivesAvailable[1];
 
 };
 #endif // MAINWINDOW_H

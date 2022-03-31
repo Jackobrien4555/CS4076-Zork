@@ -22,9 +22,8 @@ int main(int argc, char *argv[]) {
         ZorkUL::setParser(parser);
         w.show();
 
-
         delete worldleEngine;
-       delete ZorkUL::getParser();
+        delete ZorkUL::getParser();
         return a.exec();
 
 

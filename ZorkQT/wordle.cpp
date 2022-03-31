@@ -18,6 +18,7 @@ Wordle::Wordle(QWidget *parent) :
     ui(new Ui::Wordle)
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/images/logo.png"));
      ui->outputConsole->setWordWrap(true);
      WordleCode::initialiseWordle();
      WordleCode::startWordleGame();

@@ -1,8 +1,10 @@
 #include "Room.h"
 #include "ZorkUL.h"
+#include <string.h>
 
-Room::Room(string description) {
+Room::Room(string description, bool hasItem) {
     this->description = description;
+    this->hasItem = hasItem;
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
@@ -40,10 +42,21 @@ Room* Room::nextRoom(string dir) {
     // part of the "pair" (<string, Room*>) and return it.
 }
 
-//WordleRoom::WordleRoom(string(*interactFunc)){
+//Copy constructor
+Room::Room(const Room &R1){
+    if(hasItem){
+        return;
 
-//    this->interactFunc = interactFunc;
-//}
+    }
+    else{
+        this->itemsInRoom = R1.itemsInRoom;
+
+    }
+}
+
+vector<Item*> Room::getItems(){
+    return this->itemsInRoom;
+}
 
 void Room::addItemsToRoom(Item *item1)
 {
@@ -65,4 +78,26 @@ bool Room::checkItem()
 void Room::setHasItem(bool flag)
 {
     this->hasItem = flag;
+}
+
+Room::~Room(){
+    for(auto& item : this->getItems()){
+        delete item;
+    }
+
+    if(this->hasItem){
+        delete item;
+    }
+
+    this->getItems().clear();
+
+}
+
+bool Room::hasItems(){
+    if(itemsInRoom.size() == 0){
+        return false;
+    }
+    else{
+        return true;
+    }
 }

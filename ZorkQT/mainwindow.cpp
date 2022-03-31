@@ -4,15 +4,20 @@
 #include "ZorkUL.h"
 #include "Command.h"
 
+
  vector<Room*> MainWindow::Rooms;
+ Room *MainWindow::currentRoom;
+ bool MainWindow::knivesAvailable[1];
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+    ui->setupUi(this);   
+    setWindowIcon(QIcon(":/images/logo.png"));   
     setWindowTitle("Welcome to Zork 2:Electric Boogaloo");
     setFixedSize(geometry().width(),geometry().height());
+
 
      startGame();
 
@@ -36,7 +41,7 @@ void MainWindow::createRooms()
     wordleRoom = new Room("The ultimate Wordle door");
     b = new Room("B - Bar Entrance");
     c = new Room("C - Bar");
-    d = new Room("D - Alleyway");   
+    d = new Room("D - Alleyway");
     e = new Room("E - 24/7 Shop");
     f = new Room("F - Danger Alley");
     g = new Room("G - End screen");
@@ -45,7 +50,7 @@ void MainWindow::createRooms()
     //(N, E, S, W)
     a->setExits(wordleRoom, NULL, NULL, NULL);
     wordleRoom->setExits(b,NULL,a,NULL);
-    b->setExits(c, e, NULL, d);
+    b->setExits(c, e, wordleRoom, d);
     c->setExits(NULL, NULL, b, NULL);
     d->setExits(f,b, NULL, NULL);
     e->setExits(h, NULL, NULL, b);
@@ -73,7 +78,7 @@ void MainWindow::createRooms()
     knife = new Item("Knife", true);
     wordleRoom->addItemsToRoom(knife);
     d->addItemsToRoom(key);
-
+    currentRoom =a;
 }
 
 void MainWindow::setRooms(vector<Room *> rooms){
@@ -82,6 +87,15 @@ void MainWindow::setRooms(vector<Room *> rooms){
 
 vector<Room*> MainWindow::getRooms(){
     return MainWindow::Rooms;
+}
+
+void MainWindow::deleteAll(){
+    currentRoom = NULL;
+
+    for(auto& room : MainWindow::getRooms()){
+        delete room;
+    }
+    MainWindow::getRooms().clear();
 }
 
 void MainWindow::goRoom(string direction)
@@ -174,17 +188,14 @@ void MainWindow::on_westButton_clicked()
      if (currentRoom == b ) {
          ui->photoWidget->setCurrentIndex(4);
          ui->textWidget->setCurrentIndex(4);
-
-       if(ui->itemWidget->currentIndex()==0){
-
-           ui->interactWidget->setCurrentIndex(2);
-     }            if (currentRoom == e) {
+      }
+     if (currentRoom == e) {
          ui->photoWidget->setCurrentIndex(2);
          ui->textWidget->setCurrentIndex(2);
 }
  goRoom("West");
 }
-}
+
 
 /**
  * when the east button is pressed checks which room you are in
