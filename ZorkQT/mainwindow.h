@@ -20,7 +20,8 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-       Room *a, *b, *c, *d, *e,*f,*g,*h,*gameOver,*wordleRoom;
+       Room *a, *b, *c, *d, *e,*f,*g,*h,*gameOver;
+       WordleRoom *wordleRoom;
       static vector<Room*> Rooms;
 
 public:

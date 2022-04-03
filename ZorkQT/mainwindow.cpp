@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Welcome to Zork 2:Electric Boogaloo");
     setFixedSize(geometry().width(),geometry().height());
 
-
      startGame();
 
 }
@@ -38,7 +37,7 @@ void MainWindow::createRooms()
 {
    // vector<Room*> MainWindow::Rooms;
     a = new Room("A - Dark Street/Start Point");
-    wordleRoom = new Room("The ultimate Wordle door");
+    wordleRoom = new WordleRoom("The ultimate Wordle door");
     b = new Room("B - Bar Entrance");
     c = new Room("C - Bar");
     d = new Room("D - Alleyway");
@@ -188,6 +187,9 @@ void MainWindow::on_westButton_clicked()
      if (currentRoom == b ) {
          ui->photoWidget->setCurrentIndex(4);
          ui->textWidget->setCurrentIndex(4);
+        // if(d->hasItems()){
+             ui->interactWidget->setCurrentIndex(2);
+       // }
       }
      if (currentRoom == e) {
          ui->photoWidget->setCurrentIndex(2);

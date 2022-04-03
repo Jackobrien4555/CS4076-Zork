@@ -2,56 +2,56 @@
 #include <QTextStream>
 #include <QFile>
 #include <wordle.h>
-//#include "dialogues.h"
 
 using std::ifstream;
 using std::getline;
 using std::cout;
 using std::endl;
 
-vector<string> WordleCode::allWords;
+vector<string> WordleCode::allPossibleWords;
 int WordleCode::triesLeft;
-WordleCode::gameStatus WordleCode::wordleStatus = WordleCode::WORDLE_STOP;
-string WordleCode::targetWord;
+WordleCode::Status WordleCode::wordleStatus = WordleCode::WORDLE_STOP;
+string WordleCode::goalWord;
 
-bool WordleCode::isEqualIgnoreCase(char& first, char& second){
-    return tolower(first) == tolower(second);
-}
 
-void WordleCode::initWords(string filename){
-    if(filename.empty()){
-        string text;
-
+void WordleCode::inititialiseWords(string filename){
+    if(filename.empty()){     
         QFile file(":/words.txt");
         QTextStream in(&file);
         if (file.open(QFile::ReadOnly | QFile::Text)){
-            while(!in.atEnd()){
-                //qDebug() << in.readLine();
-                WordleCode::allWords.push_back(in.readLine().toStdString());
+            while(!in.atEnd()){            
+                WordleCode::allPossibleWords.push_back(in.readLine().toStdString());
             }
-
         }
-
         file.close();
     }
 }
 
 void WordleCode::initialiseWordle(){
-    initWords("");
-    WordleCode::wordleStatus = WordleCode::WORDLE_PROGRESS;
+    inititialiseWords("");
+    WordleCode::wordleStatus = WordleCode::WORDLE_CURRENT;
 }
 
-string WordleCode::evaluateInput(const string &input){
+void WordleCode::startWordleGame(){
+    //makes it random
+    srand(time(NULL));
+    WordleCode::triesLeft = 5;
+    // Get a random word
+    WordleCode::goalWord = allPossibleWords.at(rand() % allPossibleWords.size());
+}
+
+string WordleCode::checkInput(const string &input){
     string output = "";
-    std::unordered_map<char, int> letter_counts;
-    string correctWord = WordleCode::targetWord;
+    std::unordered_map<char, int> letter_counts; // a map of letters
+    string correctWord = WordleCode::goalWord; // the word we are trying to guess
     int correctLettersAmount = 0;
 
+    //input must be the same size as the correct word i.e 5 in this case
     if(input.size() != correctWord.size()){
         return "";
     }
 
-    // Initialising the letter_counts map, pairing each letter with 1
+    //  Pairing each letter in the letter_counts map with 1
     for(int i = 0; i < (int) correctWord.size(); i++){
         char currentChar = tolower(correctWord.at(i));
         // If the letter does not exist yet, add it and pair it with the int 1
@@ -67,7 +67,7 @@ string WordleCode::evaluateInput(const string &input){
     for(int i = 0; i < (int) input.size(); i++){
         char currentInputLetter = input.at(i);
 
-        // If the character is at the correct index
+        // If the character is in the right spot place a [] around it indicating its correct
         if(WordleCode::isEqualIgnoreCase(currentInputLetter, correctWord.at(i))){
             letter_counts[currentInputLetter] -= 1;
             output.push_back('[');
@@ -76,8 +76,7 @@ string WordleCode::evaluateInput(const string &input){
             correctLettersAmount++;
 
         }
-        // If the character exists but is in the wrong index
-        // In this case, we also check the letter_counts map to see if there are any of that particular letter remaining.
+        // if the character is correct but in wrong position placve a {} around it, also checks if another of that character is present
         else if(letter_counts[currentInputLetter] > 0){
             letter_counts[currentInputLetter] -= 1;
             output.push_back('{');
@@ -91,10 +90,15 @@ string WordleCode::evaluateInput(const string &input){
 
     output = output +" " + correctWord + '\n';
 
-    // If the guess is correct, set status to success
+   /**
+    *  If the guess is right then change status to WORDLE_COMPLETED
+    *  if not reduce amount of tries left and print on screen
+    * if tries left=0 set wordle status to stop
+    */
+
     if(correctLettersAmount == (int) correctWord.size()){
         output += "Congrats thats the correct word! ";
-        WordleCode::wordleStatus = WordleCode::WORDLE_SUCCESS;
+        WordleCode::wordleStatus = WordleCode::WORDLE_COMPLETED;
     }
     else{
         WordleCode::triesLeft--;
@@ -111,18 +115,14 @@ string WordleCode::evaluateInput(const string &input){
     return output;
 }
 
-vector<string> WordleCode::getAllWords(){
-    return WordleCode::allWords;
-}
 
-void WordleCode::startWordleGame(){
-    // Randomising
-    srand(time(NULL));
-    WordleCode::triesLeft = 5;
-    // Get a random word
-    WordleCode::targetWord = allWords.at(rand() % allWords.size());
-}
-
-WordleCode::gameStatus WordleCode::getStatus(){
+WordleCode::Status WordleCode::getStatus(){
     return WordleCode::wordleStatus;
+}
+vector<string> WordleCode::getAllWords(){
+    return WordleCode::allPossibleWords;
+}
+
+bool WordleCode::isEqualIgnoreCase(char& first, char& second){
+    return tolower(first) == tolower(second);
 }

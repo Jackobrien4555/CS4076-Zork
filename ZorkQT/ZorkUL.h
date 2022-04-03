@@ -12,14 +12,14 @@ using namespace std;
 
 class ZorkUL {
 private:
-
+       //making static,only one instance of it
      static Parser *parser;
 
 
 public:
     ZorkUL();
-    void play();
-  static string processCommand(Command command, Wordle *window);
+    void play();   
+    static string processCommand(Command command, Wordle *window);
     string go(string direction);   
     static void setParser(Parser* parser);
      static Parser* getParser();

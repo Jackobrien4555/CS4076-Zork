@@ -13,21 +13,21 @@ using std::vector;
 
 class WordleCode{
 public:
-    enum gameStatus {WORDLE_STOP, WORDLE_PROGRESS, WORDLE_FAIL, WORDLE_SUCCESS };
+    enum Status {WORDLE_STOP, WORDLE_CURRENT, WORDLE_FAILED, WORDLE_COMPLETED };
 
 private:
-    // All valid words
-    static vector<string> allWords;
+    // All words that are possible
+    static vector<string> allPossibleWords;
     static int triesLeft;    
-    static gameStatus wordleStatus;
-    static void initWords(string filename);
-    static string targetWord;
+    static Status wordleStatus;
+    static void inititialiseWords(string filename);
+    static string goalWord;
 
 
 public:
-    static string evaluateInput(const string& input);
+    static string checkInput(const string& input);
     static vector<string> getAllWords();
-    static gameStatus getStatus();
+    static Status getStatus();
     static void startWordleGame();
     static string checkGame();
     static void initialiseWordle();

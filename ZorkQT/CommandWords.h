@@ -12,11 +12,11 @@ private:
     static vector<string> validCommands;
 
 public:
-    CommandWords();
-    string validCommandsToString();
+    CommandWords();  
     bool isCommand(string aString);
         void showAll();
 };
 
 
 #endif /*COMMANDWORDS_H_*/
+

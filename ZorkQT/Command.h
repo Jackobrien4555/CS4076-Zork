@@ -10,12 +10,10 @@ private:
     string secondWord;
 
 public:
-    Command(const string& firstWord,const string& secondWord);
-    string getCommandWord();
-    string getSecondWord();
+    Command(const string& firstWord);
+    string getCommandWord();    
     bool isUnknown();
-    bool hasSecondWord();
-};
+   };
 
 #endif
 

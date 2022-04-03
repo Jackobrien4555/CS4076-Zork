@@ -12,8 +12,6 @@ public:
     Parser();
     ~Parser();
     Command* getCommand();
-    Command* convertToCommand(string input);
-        string commandsInString();
-    //void showCommands();
+    Command* convertToCommand(string input);      
 };
 #endif //Parser.h

@@ -1,10 +1,17 @@
 #include "Room.h"
 #include "ZorkUL.h"
 #include <string.h>
+#include "item.h"
 
-Room::Room(string description, bool hasItem) {
+Room::Room(string description,roomType, bool hasItem) {
     this->description = description;
     this->hasItem = hasItem;
+}
+
+//initialiser list setting what the description is
+WordleRoom::WordleRoom(string description,roomType roomType)
+    : Room( description,roomType){
+
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
@@ -22,9 +29,9 @@ string Room::shortDescription() {
     return description;
 }
 
-string Room::longDescription() {
-    return "room = " + description + ".\n"  + exitString();
-}
+//string Room::longDescription() {
+//    return "room = " + description + ".\n"  + exitString();
+//}
 
 string Room::exitString() {
     string returnString = "\nexits =";
@@ -54,20 +61,36 @@ Room::Room(const Room &R1){
     }
 }
 
-vector<Item*> Room::getItems(){
-    return this->itemsInRoom;
+string Room::getShortDescription() {
+    return description;
 }
 
-void Room::addItemsToRoom(Item *item1)
-{
-    this->roomItems = item1;
-    this->hasItem = true;
+
+//making inline as used more than once
+inline vector<Item*> Room::getItems(){
+    return this->itemsInRoom;
 }
 
 
 Item* Room::getItemFromRoom()
 {
     return roomItems;
+}
+
+Room::roomType Room::getroomType(){
+    return this->typeOfRoom;
+}
+
+void Room::addItemsToRoom(Item *item1)
+{
+    this->roomItems = item1;
+    this->hasItem = true;
+
+}
+
+//operator overloading to add item to room
+void Room::operator+(Item *item1){
+    this->addItemsToRoom(item1);
 }
 
 bool Room::checkItem()
@@ -86,7 +109,7 @@ Room::~Room(){
     }
 
     if(this->hasItem){
-        delete item;
+        delete roomItems;
     }
 
     this->getItems().clear();

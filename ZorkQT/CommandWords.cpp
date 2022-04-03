@@ -1,12 +1,12 @@
-#include "CommandWords.h"
+
+ #include "CommandWords.h"
 
 vector<string> CommandWords::validCommands;
 
-/**
- * Constructor - initialise the command words.
- */
+
 CommandWords::CommandWords() {
     // Populate the vector if we haven't already.
+    // list of command words-did not end up using as I am using QT widgets and buttons
     if (validCommands.empty()) {
         validCommands.push_back("go");
         validCommands.push_back("quit");
@@ -15,7 +15,7 @@ CommandWords::CommandWords() {
         validCommands.push_back("take");
         validCommands.push_back("put");
         validCommands.push_back("teleport");
-        validCommands.push_back("interact");
+
     }
 }
 
@@ -35,17 +35,3 @@ bool CommandWords::isCommand(string aString) {
 
 
 
-string CommandWords::validCommandsToString(){
-    string allValidCommands = "";
-
-    //Loops through validCommands and prints each to the screen.
-    for (unsigned int i = 0; i < validCommands.size() - 1; i++)
-    {
-        allValidCommands += validCommands.at(i) + ", ";
-    }
-
-    // Last command won't have any commas
-    allValidCommands += validCommands.at(validCommands.size() - 1);
-
-    return allValidCommands;
-}

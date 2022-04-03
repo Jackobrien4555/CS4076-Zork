@@ -9,10 +9,13 @@ using std::vector;
 using namespace std;
 using std::vector;
 
-// Abstract class holding properties that rooms will have,ie. if it has an item
+// Abstract class holding properties that rooms will have,ie. if it has an item and what type of room it will be
+// using abstract class as base class for Room to inherit
 class RoomProps{
 public:
+    //pure virtual function-
       virtual bool hasItems() = 0;
+      enum roomType : int {PUZZLE = 1, REGULAR= 2};
 };
 
 
@@ -20,30 +23,33 @@ public:
 class Room : public RoomProps {
     friend class MainWindow;
 
-private:
-
-     bool fileRead = false;
-     Item *roomItems;
 
 protected:
      vector <Item*> itemsInRoom;
      string description;
      map<string, Room*> exit;
      string exitString();
+     roomType typeOfRoom;
 
 public:
-
-     Room(string description=" ",bool item=false); //constructor
+     //default parameters for the Room object
+     Room(string description=" ",roomType=REGULAR, bool item=false); //constructor
      Room(const Room &R1);
 
      virtual ~Room();
+
+     //a room can have an item,used a union in order to save some space in memory
      union {
-             Item* item;
-             ;
+              Item *roomItems;
     };
+
+     //used for operator overloading
+     void operator+(Item *item1);
+
      bool hasItem;
      int numberOfItems();
      void addItemsToRoom(Item *item1);
+     void addItem(Item *item1);
      Item* getItemFromRoom();
      vector<Item*> getItems();
      bool checkItem();
@@ -52,14 +58,18 @@ public:
 
      void setExits(Room *north, Room *east, Room *south, Room *west);
      string shortDescription(); //name of the room
-     string longDescription(); //objective
+     //virtual as different room names to be displayed depending on type of room
+     virtual string getShortDescription();
+     //string longDescription(); //objective
      Room* nextRoom(string direction);
-
+     roomType getroomType();
 
 };
 
+//inheritence-WordleRoom is sub class of Room
 class WordleRoom : public Room{
-     WordleRoom(string(*interactFunc));
+public:
+    WordleRoom(string description,roomType=PUZZLE);
 };
 
 #endif

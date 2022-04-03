@@ -8,39 +8,31 @@ Parser::~Parser(){
     delete commands;
 }
 
-
+//used for the wordle code
 Command* Parser::convertToCommand(string input){
-    string word1 = "";
-    string word2 = "";
+    string word = "";
     vector<string> words;
 
-    // Size type is basically an int that's big enough
-    // to represent the size of a string.
+    // Size type is an int used for the size of the string
     string::size_type pos = 0, last_pos = 0;
-
-    pos = input.find_first_of(' ', last_pos);	// find and remember first space.
-    // npos tells you if there is no string found.
+    // find first space.
+    pos = input.find_first_of(' ', last_pos);
+    // npos = no string found.
     if (pos == string::npos ) {
-        words.push_back(input);    // Get the first(and only) word
+        // Gets only the first word
+        words.push_back(input);
     } else {
         words.push_back(input.substr(0, pos));
         words.push_back(input.substr(pos + 1, input.size() - pos - 1));
     }
 
-    if (words.size() == 1) //was only 1 word entered?
-        word1 = words[0]; //get first word
-    else if (words.size() >= 2) { //were at least 2 words entered?
-        word1 = words[0]; //get first word
-        word2 = words[1]; //get second word
-    }
+    if (words.size() == 1) //checks if only one word was entered
+        word = words[0]; //gets word
 
-    // note: we just ignore the rest of the input line.
+
+    //  rest of the input line is ignored.
     // Now check whether this word is known. If so, create a command with it.
-    // If not, create a "nil" command (empty string for unknown command).
+    // If not, create an empty string for unknown command.
 
-    return new Command(word1, word2);
-}
-
-string Parser::commandsInString(){
-    return commands->validCommandsToString();
+    return new Command(word);
 }
