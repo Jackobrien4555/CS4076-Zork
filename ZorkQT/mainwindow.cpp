@@ -265,6 +265,7 @@ void MainWindow::on_fight_clicked()
         ui->photoWidget->setCurrentIndex(6);
         ui->textWidget->setCurrentIndex(6);
         ui->interactWidget->setCurrentIndex(1);
+        goRoom("g");
         ui->gridWidget->deleteLater();
 
     } else {
