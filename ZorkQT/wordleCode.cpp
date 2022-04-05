@@ -42,61 +42,58 @@ void WordleCode::startWordleGame(){
 
 string WordleCode::checkInput(const string &input){
     string output = "";
-    std::unordered_map<char, int> letter_counts; // a map of letters
-    string correctWord = WordleCode::goalWord; // the word we are trying to guess
-    int correctLettersAmount = 0;
+    string correct = WordleCode::goalWord; // the word we are trying to guess
+    std::unordered_map<char, int> letter_map; // a map of letters
+    int numCorrectLetters = 0;
 
     //input must be the same size as the correct word i.e 5 in this case
-    if(input.size() != correctWord.size()){
+    if(input.size() != correct.size()){
         return "";
     }
-
     //  Pairing each letter in the letter_counts map with 1
-    for(int i = 0; i < (int) correctWord.size(); i++){
-        char currentChar = tolower(correctWord.at(i));
+    for(int i = 0; i < (int) correct.size(); i++){
+        char current = tolower(correct.at(i));
         // If the letter does not exist yet, add it and pair it with the int 1
         // Otherwise, just add 1 to that entry.
-        if(letter_counts.count(currentChar)){
-            letter_counts[currentChar] += 1;
+        if(letter_map.count(current)){
+            letter_map[current] += 1;
         }
         else{
-            letter_counts.insert({currentChar, 1});
+            letter_map.insert({current, 1});
         }
     }
 
     for(int i = 0; i < (int) input.size(); i++){
-        char currentInputLetter = input.at(i);
+        char currentLetter = input.at(i);
 
         // If the character is in the right spot place a [] around it indicating its correct
-        if(WordleCode::isEqualIgnoreCase(currentInputLetter, correctWord.at(i))){
-            letter_counts[currentInputLetter] -= 1;
+        if(WordleCode::isEqualIgnoreCase(currentLetter, correct.at(i))){
+            letter_map[currentLetter] -= 1;
             output.push_back('[');
-            output.push_back(currentInputLetter);
+            output.push_back(currentLetter);
             output.push_back(']');
-            correctLettersAmount++;
+           numCorrectLetters++;
 
         }
         // if the character is correct but in wrong position placve a {} around it, also checks if another of that character is present
-        else if(letter_counts[currentInputLetter] > 0){
-            letter_counts[currentInputLetter] -= 1;
+        else if(letter_map[currentLetter] > 0){
+            letter_map[currentLetter] -= 1;
             output.push_back('{');
-            output.push_back(currentInputLetter);
+            output.push_back(currentLetter);
             output.push_back('}');
         }
         else{
-            output.push_back(currentInputLetter);
+            output.push_back(currentLetter);
         }
     }
 
-    output = output +" " + correctWord + '\n';
-
+    output = output +" " + correct + '\n';
    /**
     *  If the guess is right then change status to WORDLE_COMPLETED
     *  if not reduce amount of tries left and print on screen
     * if tries left=0 set wordle status to stop
     */
-
-    if(correctLettersAmount == (int) correctWord.size()){
+    if(numCorrectLetters == (int) correct.size()){
         output += "Congrats thats the correct word! ";
         WordleCode::wordleStatus = WordleCode::WORDLE_COMPLETED;
     }
@@ -111,7 +108,6 @@ string WordleCode::checkInput(const string &input){
             output += WordleCode::triesLeft;
         }
     }
-
     return output;
 }
 

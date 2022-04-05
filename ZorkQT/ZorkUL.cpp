@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 /**
  * Given a command in the wordle game the code goes through the process of executing that command
  */
-string ZorkUL::processCommand(Command command, Wordle *window) {
+string ZorkUL::convertCommand(Command command, Wordle *window) {
     string output = "";
     // In the Wordle game, the command input is used as a try in Wordle
     if(WordleCode::getStatus() == WordleCode::WORDLE_CURRENT){
@@ -59,7 +59,8 @@ void ZorkUL::setParser(Parser *parser){
 }
 
 //making function inline as its called many times and is small
-inline Parser* ZorkUL::getParser(){
+//inline
+Parser* ZorkUL::getParser(){
     return ZorkUL::parser;
 }
 

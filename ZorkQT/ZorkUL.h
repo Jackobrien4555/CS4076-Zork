@@ -19,7 +19,7 @@ private:
 public:
     ZorkUL();
     void play();   
-    static string processCommand(Command command, Wordle *window);
+    static string convertCommand(Command command, Wordle *window);
     string go(string direction);   
     static void setParser(Parser* parser);
      static Parser* getParser();

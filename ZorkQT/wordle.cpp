@@ -52,7 +52,7 @@ void Wordle::parseInput(string input){
     Command *command = ZorkUL::getParser()->convertToCommand(input);
     // addStringToConsole(" " + your input + "\n");
     overwriteConsole(" " + input + "\n");
-    string output = ZorkUL::processCommand(*command, this);
+    string output = ZorkUL::convertCommand(*command, this);
     // if the command does not suit the wordle code print an error message
     if(output.compare("") == 0){        
         overwriteConsole("Error ");
