@@ -28,6 +28,7 @@ void MainWindow::startGame()
      createRooms();
      ui->photoWidget->setCurrentIndex(0);
      ui->interactWidget->setCurrentIndex(1);
+     ui->itemWidget_2->setCurrentIndex(0);
 }
 /**
  * creates all rooms and place them into "Rooms"
@@ -325,6 +326,7 @@ void MainWindow::on_SolveWordle_clicked()
   wordle.setModal(true);
   wordle.exec();
   currentRoom->setHasItem(false);
+  ui->itemWidget_2->setCurrentIndex(1);
     }
 
 }

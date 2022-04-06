@@ -59,8 +59,7 @@ void ZorkUL::setParser(Parser *parser){
 }
 
 //making function inline as its called many times and is small
-//inline
-Parser* ZorkUL::getParser(){
+inline Parser* ZorkUL::getParser(){
     return ZorkUL::parser;
 }
 
