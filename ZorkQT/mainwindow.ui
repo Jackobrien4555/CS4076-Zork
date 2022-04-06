@@ -59,7 +59,7 @@ color: rgb(255, 255, 255);
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>10</number>
        </property>
        <widget class="QWidget" name="starta">
         <property name="styleSheet">
@@ -68,7 +68,7 @@ color: rgb(255, 255, 255);
        </widget>
        <widget class="QWidget" name="wordleRoom">
         <property name="styleSheet">
-         <string notr="true">border-image: url(:/images/alleyway 2.jpg);</string>
+         <string notr="true">background-image: url(:/Pictures/Wordle-235-February-9-2022-Answer-2.webp);</string>
         </property>
        </widget>
        <widget class="QWidget" name="b">
