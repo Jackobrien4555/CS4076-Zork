@@ -159,10 +159,10 @@ void MainWindow::on_northButton_clicked()
 
          ui->photoWidget->setCurrentIndex(3);
          ui->textWidget->setCurrentIndex(3);
-
-
+        if(d->checkItem()==false){
+       ui->interactWidget->setCurrentIndex(3);
      }
-
+}
 if (currentRoom == d) {
         ui->photoWidget->setCurrentIndex(5);
          ui->textWidget->setCurrentIndex(5);
@@ -189,9 +189,9 @@ void MainWindow::on_westButton_clicked()
      if (currentRoom == b ) {
          ui->photoWidget->setCurrentIndex(4);
          ui->textWidget->setCurrentIndex(4);
-        // if(d->hasItems()){
+         if(d->hasItem){
              ui->interactWidget->setCurrentIndex(2);
-       // }
+        }
       }
      if (currentRoom == e) {
          ui->photoWidget->setCurrentIndex(2);
@@ -240,17 +240,24 @@ void MainWindow::on_southButton_clicked()
     if (currentRoom == c) {
          ui->photoWidget->setCurrentIndex(2);
          ui->textWidget->setCurrentIndex(2);
+         ui->interactWidget->setCurrentIndex(1);
     } if (currentRoom == wordleRoom ) {
         ui->photoWidget->setCurrentIndex(0);
          ui->textWidget->setCurrentIndex(0);
+         ui->interactWidget->setCurrentIndex(1);
     }
-if (currentRoom == g) {
+      if (currentRoom == g) {
          ui->photoWidget->setCurrentIndex(3);
          ui->textWidget->setCurrentIndex(3);
-    } if (currentRoom == f) {
-         ui->photoWidget->setCurrentIndex(4);
-         ui->textWidget->setCurrentIndex(4);
-         ui->interactWidget->setCurrentIndex(2);
+    }
+      if (currentRoom == f) {
+          ui->photoWidget->setCurrentIndex(4);
+          ui->textWidget->setCurrentIndex(4);
+          ui->interactWidget->setCurrentIndex(1);
+         if(d->hasItem){
+             ui->interactWidget->setCurrentIndex(2);
+        }
+
     } if (currentRoom == h) {
          ui->photoWidget->setCurrentIndex(7);
          ui->textWidget->setCurrentIndex(7);
@@ -294,7 +301,7 @@ void MainWindow::on_Search_clicked()
 
 }
            currentRoom->setHasItem(false);
-           ui->interactWidget->setCurrentIndex(3);
+           ui->interactWidget->setCurrentIndex(1);
 
     }
 }
