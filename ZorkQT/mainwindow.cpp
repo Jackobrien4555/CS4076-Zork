@@ -144,8 +144,9 @@ void MainWindow::on_northButton_clicked()
     if (currentRoom == a) {
    ui->photoWidget->setCurrentIndex(1);
     ui->textWidget->setCurrentIndex(1);
+    if(wordleRoom->hasItem){
      ui->interactWidget->setCurrentIndex(4);
-
+}
     }
     if (currentRoom == wordleRoom )  {
 
@@ -231,7 +232,10 @@ void MainWindow::on_southButton_clicked()
     if (currentRoom == b) {
          ui->photoWidget->setCurrentIndex(1);
          ui->textWidget->setCurrentIndex(1);
-         ui->interactWidget->setCurrentIndex(4);
+         if(wordleRoom->hasItem){
+          ui->interactWidget->setCurrentIndex(4);
+     }
+
     }
     if (currentRoom == c) {
          ui->photoWidget->setCurrentIndex(2);

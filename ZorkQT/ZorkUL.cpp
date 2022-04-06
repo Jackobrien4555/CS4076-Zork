@@ -27,11 +27,7 @@ int main(int argc, char *argv[]) {
         delete worldleCode;
         delete ZorkUL::getParser();
         return a.exec();
-
-
     }
-
-
 
 /**
  * Given a command in the wordle game the code goes through the process of executing that command
